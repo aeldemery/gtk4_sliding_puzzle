@@ -2,5 +2,9 @@
 <gresources>
     <gresource prefix="/github/aeldemery/gtk4_sliding_puzzle">
         <file>portland-rose.jpg</file>
+        <file>linuxadminhero.jpg</file>
+        <file>penguine.jpg</file>
+        <file>distribution-linux.jpg</file>
+        <file>linux-penguin-3d-model.jpg</file>
     </gresource>
 </gresources>

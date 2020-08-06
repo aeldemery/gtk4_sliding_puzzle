@@ -20,10 +20,10 @@ public class Gtk4Demo.PuzzlePiece : Object, Gdk.Paintable {
     Gdk.Paintable puzzle;
     int x;
     int y;
-    int width;
-    int height;
+    uint width;
+    uint height;
 
-    public PuzzlePiece (Gdk.Paintable puzzle, int x, int y, int width, int height)
+    public PuzzlePiece (Gdk.Paintable puzzle, int x, int y, uint width, uint height)
     /* These are sanity checks, so that we get warnings if we accidentally
      * do anything stupid. */
     requires (puzzle != null)
@@ -53,6 +53,7 @@ public class Gtk4Demo.PuzzlePiece : Object, Gdk.Paintable {
     public int get_y () {
         return y;
     }
+
     /* This is the function that draws the puzzle piece.
      * It just draws a rectangular cutout of the puzzle by clipping
      * away the rest.
@@ -81,13 +82,13 @@ public class Gtk4Demo.PuzzlePiece : Object, Gdk.Paintable {
      * Round up the value.
      */
     protected int get_intrinsic_width () {
-        return (puzzle.get_intrinsic_width () + width - 1) / width;
+        return (int)((puzzle.get_intrinsic_width () + width - 1) / width);
     }
 
     /* Do the same thing we did for the width with the height.
      */
     protected int get_intrinsic_height () {
-        return (puzzle.get_intrinsic_height () + height - 1) / height;
+        return (int)((puzzle.get_intrinsic_height () + height - 1) / height);
     }
 
     /* We can compute our aspect ratio relative to the puzzle.
