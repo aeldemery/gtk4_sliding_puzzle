@@ -1,4 +1,4 @@
-# Project Title
+# Sliding Puzzle
 
 ## Table of Contents
 
@@ -9,38 +9,20 @@
 
 ## About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+Vala Implementation of Gtk4 Sliding Puzzle demo. This demo shows usage of Keyboard Shortcuts and Gdk.Paintable.
 
-## Getting Started <a name = "getting_started"></a>
+There is currently a couple of issues however, currently double clicking restart button maximize the window!. and clicking the menu button randomly segfaults with this assertion failure.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+```
+Gdk:ERROR:../gdk/x11/gdkglcontext-x11.c:189:gdk_x11_gl_context_end_frame: assertion failed: (context_x11->frame_fence == 0)
+Bail out! Gdk:ERROR:../gdk/x11/gdkglcontext-x11.c:189:gdk_x11_gl_context_end_frame: assertion failed: (context_x11->frame_fence == 0)
+fish: “./builddir/meson-out/github.ael…” terminated by signal SIGABRT (Abort)
+```
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+The example uses `gtk4 version 3.99.1` and `vala` master branch.
 
-```
-Give examples
-```
+## Screenshot
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## Usage <a name = "usage"></a>
-
-Add notes about how to use the system.
+![Screenshot]()
