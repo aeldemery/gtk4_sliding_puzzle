@@ -3,9 +3,7 @@
 ## Table of Contents
 
 - [About](#about)
-- [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
+- [Screenshot](#screenshot)
 
 ## About <a name = "about"></a>
 
@@ -23,6 +21,6 @@ fish: “./builddir/meson-out/github.ael…” terminated by signal SIGABRT (Abo
 
 The example uses `gtk4 version 3.99.1` and `vala` master branch.
 
-## Screenshot
+## Screenshot  <a name = "screenshot"></a>
 
-![Screenshot]()
+![Screenshot](https://github.com/aeldemery/gtk4_sliding_puzzle/blob/master/Screenshot%201.png)
