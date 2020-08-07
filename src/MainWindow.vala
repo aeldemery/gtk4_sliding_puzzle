@@ -9,7 +9,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
     static Gdk.Paintable linux_penguin_3d_texture;
     static Gdk.Paintable penguine_texture;
     static Gdk.Paintable distrubtion_linux_texture;
-    static Gdk.Paintable current_texture;
+    unowned Gdk.Paintable current_texture;
 
     PuzzleBoard puzzle_board;
 
@@ -25,9 +25,9 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
     Gtk.HeaderBar header;
     Gtk.Image icon;
 
-    Gtk.Image selected_image;
+    unowned Gtk.Image selected_image;
     GLib.List<weak Gtk.FlowBoxChild> selected;
-    Gtk.Widget selected_child;
+    unowned Gtk.Widget selected_child;
 
     public MainWindow (Gtk.Application app) {
         Object (application: app);
@@ -112,6 +112,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         current_texture = penguine_texture;
         puzzle_board = new PuzzleBoard (current_texture);
         set_child (puzzle_board);
+        puzzle_board.grab_focus ();
     }
 
     void reconfigure () {
@@ -133,12 +134,14 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         var popover = (Gtk.Popover)size_spin.get_ancestor (typeof (Gtk.Popover));
         popover.popdown ();
+        puzzle_board.grab_focus ();
     }
 
     void restart () {
         puzzle_board = null;
         puzzle_board = new PuzzleBoard (current_texture);
         set_child (puzzle_board);
+        puzzle_board.grab_focus ();
     }
 
     protected override void dispose () {

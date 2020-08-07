@@ -24,6 +24,8 @@ public class Gtk4Demo.PuzzleBoard : Gtk.Widget {
         if (texture != null) texture = null;
         texture = puzzle_texture;
 
+        this.focusable = true;
+
         width = height = n_pieces;
 
         puzzle_grid = new Gtk.Grid ();
@@ -45,12 +47,12 @@ public class Gtk4Demo.PuzzleBoard : Gtk.Widget {
         controller.add_shortcut (add_move_binding (Gdk.Key.uparrow, Gdk.Key.KP_Up, 0, -1));
         controller.add_shortcut (add_move_binding (Gdk.Key.downarrow, Gdk.Key.KP_Down, 0, 1));
 
-        puzzle_grid.add_controller (controller);
+        this.add_controller (controller);
 
         var gesture = new Gtk.GestureClick ();
         gesture.pressed.connect (puzzle_button_pressed);
 
-        puzzle_grid.add_controller (gesture);
+        this.add_controller (gesture);
 
         frame = new Gtk.AspectFrame (0.5f, 0.5f, aspect_ratio, false);
         frame.obey_child = false;
