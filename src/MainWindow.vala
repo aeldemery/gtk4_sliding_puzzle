@@ -4,11 +4,12 @@
 // https://opensource.org/licenses/MIT
 
 public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
-    Gdk.Paintable portland_rose_texture;
-    Gdk.Paintable linux_admin_texture;
-    Gdk.Paintable linux_penguin_3d_texture;
-    Gdk.Paintable penguine_texture;
-    Gdk.Paintable distrubtion_linux_texture;
+    static Gdk.Paintable portland_rose_texture;
+    static Gdk.Paintable linux_admin_texture;
+    static Gdk.Paintable linux_penguin_3d_texture;
+    static Gdk.Paintable penguine_texture;
+    static Gdk.Paintable distrubtion_linux_texture;
+    static Gdk.Paintable current_texture;
 
     PuzzleBoard puzzle_board;
 
@@ -24,22 +25,15 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
     Gtk.HeaderBar header;
     Gtk.Image icon;
 
+    Gtk.Image selected_image;
+    GLib.List<weak Gtk.FlowBoxChild> selected;
+    Gtk.Widget selected_child;
+
     public MainWindow (Gtk.Application app) {
         Object (application: app);
-    }
 
-    construct {
         title = "Sliding Puzzle";
         set_default_size (600, 500);
-
-        portland_rose_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/portland-rose.jpg");
-        linux_admin_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/linuxadminhero.jpg");
-        linux_penguin_3d_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/linux-penguin-3d-model.jpg");
-        penguine_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/penguine.jpg");
-        distrubtion_linux_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/distribution-linux.jpg");
-
-        puzzle_board = new PuzzleBoard (penguine_texture);
-        set_child (puzzle_board);
 
         choices = new Gtk.FlowBox ();
         choices.add_css_class ("view");
@@ -107,32 +101,58 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         set_titlebar (header);
     }
 
-    void reconfigure () {
-        Gtk.Widget child;
+    construct {
 
+        portland_rose_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/portland-rose.jpg");
+        linux_admin_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/linuxadminhero.jpg");
+        linux_penguin_3d_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/linux-penguin-3d-model.jpg");
+        penguine_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/penguine.jpg");
+        distrubtion_linux_texture = Gdk.Texture.from_resource ("/github/aeldemery/gtk4_sliding_puzzle/distribution-linux.jpg");
+
+        current_texture = penguine_texture;
+        puzzle_board = new PuzzleBoard (current_texture);
+        set_child (puzzle_board);
+    }
+
+    void reconfigure () {
         var n_pieces = size_spin.get_value_as_int ();
 
-        var selected = choices.get_selected_children ();
+        selected = choices.get_selected_children ();
         if (selected == null)
-            child = choices.get_first_child ();
+            selected_child = choices.get_first_child ();
         else {
-            child = selected.data;
+            selected_child = selected.data;
         }
 
-        var image = (Gtk.Image)((Gtk.FlowBoxChild)child).get_child ();
-        var puzzle = image.get_paintable ();
+        selected_image = (Gtk.Image)((Gtk.FlowBoxChild)child).get_child ();
+        current_texture = selected_image.get_paintable ();
 
         puzzle_board = null;
-        puzzle_board = new PuzzleBoard (puzzle, n_pieces);
+        puzzle_board = new PuzzleBoard (current_texture, n_pieces);
         set_child (puzzle_board);
 
         var popover = (Gtk.Popover)size_spin.get_ancestor (typeof (Gtk.Popover));
         popover.popdown ();
-        puzzle_board.grab_focus ();
     }
 
     void restart () {
-        puzzle_board = new PuzzleBoard (penguine_texture);
+        puzzle_board = null;
+        puzzle_board = new PuzzleBoard (current_texture);
         set_child (puzzle_board);
+    }
+
+    protected override void dispose () {
+        portland_rose_texture = null;
+        linux_admin_texture = null;
+        linux_penguin_3d_texture = null;
+        penguine_texture = null;
+        distrubtion_linux_texture = null;
+        current_texture = null;
+
+        if (puzzle_board != null) {
+            puzzle_board = null;
+        }
+
+        base.dispose ();
     }
 }

@@ -101,7 +101,6 @@ public class Gtk4Demo.PuzzlePiece : Object, Gdk.Paintable {
 
     protected override void dispose () {
         if (puzzle != null) {
-            // ToDo
             puzzle = null;
         }
         base.dispose ();

@@ -77,18 +77,19 @@ public class Gtk4Demo.PuzzleBoard : Gtk.Widget {
 
     protected override void dispose () {
         frame.unparent ();
+        texture = null;
 
         base.dispose ();
     }
 
-    void reshuffle () {
-        if (solved) {
-            start_puzzle ();
-        } else {
-            shuffle_puzzle ();
-        }
-        puzzle_grid.grab_focus ();
-    }
+    //  void reshuffle () {
+    //      if (solved) {
+    //          start_puzzle ();
+    //      } else {
+    //          shuffle_puzzle ();
+    //      }
+    //      puzzle_grid.grab_focus ();
+    //  }
 
     void start_puzzle () {
         aspect_ratio = (float) texture.get_intrinsic_aspect_ratio ();
