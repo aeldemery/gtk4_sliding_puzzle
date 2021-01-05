@@ -112,7 +112,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         current_texture = penguine_texture;
         puzzle_board = new PuzzleBoard (current_texture);
         set_child (puzzle_board);
-        puzzle_board.grab_focus ();
+        //puzzle_board.grab_focus ();
     }
 
     void reconfigure () {
@@ -134,14 +134,14 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         var popover = (Gtk.Popover)size_spin.get_ancestor (typeof (Gtk.Popover));
         popover.popdown ();
-        puzzle_board.grab_focus ();
+        //puzzle_board.grab_focus ();
     }
 
     void restart () {
         puzzle_board = null;
         puzzle_board = new PuzzleBoard (current_texture);
         set_child (puzzle_board);
-        puzzle_board.grab_focus ();
+        //puzzle_board.grab_focus ();
     }
 
     protected override void dispose () {
