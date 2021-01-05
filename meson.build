@@ -20,7 +20,7 @@ sources += import ('gnome').compile_resources (
 dependencies = [
     dependency ('gobject-2.0'),
     dependency ('glib-2.0'),
-    dependency ('gtk4', version: '>=3.98.5'),
+    dependency ('gtk4', version: '>= 4.0.0'),
     meson.get_compiler('c').find_library('m', required: false),
 ]
 
